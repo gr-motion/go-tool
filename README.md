@@ -38,7 +38,7 @@ git clone https://github.com/gr-motion/go-tool.git && cd go-tool && chmod +x ins
 Simply type `go` followed by your request:
 - `go create a folder called test`
 - `go convert all videos in this folder to mp4`
-- `go list all files larger than 10MB`
+- `go create an image of a banana in 2k, 16:9 aspect ratio`
 
 If a command is destructive (e.g., `rm`), it will show you the command with description and ask for your confirmation.
 # go-tool
