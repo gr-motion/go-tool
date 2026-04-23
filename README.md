@@ -7,7 +7,7 @@ Convert your plain text to system commands using Gemini.
 Run this command in your terminal:
 
 ```bash
-git clone https://github.com/[YOUR_USERNAME]/go-tool.git && cd go-tool && chmod +x install.sh && ./install.sh
+git clone https://github.com/gr-motion/go-tool.git && cd go-tool && chmod +x install.sh && ./install.sh
 ```
 
 ## ⚙️ Setup
