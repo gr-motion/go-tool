@@ -24,7 +24,7 @@ git clone https://github.com/gr-motion/go-tool.git && cd go-tool && chmod +x ins
 
 ## ⚙️ Setup
 
-1. **Set your API Key:**
+1. **Set your API Key (you can find it on google AI studio website):**
    ```bash
    go /api [YOUR_GEMINI_API_KEY]
    ```
