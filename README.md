@@ -30,7 +30,7 @@ git clone https://github.com/gr-motion/go-tool.git && cd go-tool && chmod +x ins
    ```
 2. **(Optional) Set your Model:**
    ```bash
-   go /model pro  # Options: flash (default), pro
+   go /model [flash/pro]
    ```
 
 ## 🛠 Usage
@@ -40,5 +40,5 @@ Simply type `go` followed by your request:
 - `go convert all videos in this folder to mp4`
 - `go list all files larger than 10MB`
 
-If a command is destructive (e.g., `rm`), it will show you the command and ask for your confirmation.
+If a command is destructive (e.g., `rm`), it will show you the command with description and ask for your confirmation.
 # go-tool
