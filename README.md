@@ -2,6 +2,18 @@
 
 Convert your plain text to system commands using Gemini.
 
+## 📋 Prerequisites
+
+Before installing, make sure you have the following installed. On macOS, the easiest way is using [Homebrew](https://brew.sh/):
+
+```bash
+# Install Homebrew if you don't have it
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Install requirements
+brew install git python ffmpeg
+```
+
 ## 📦 Simple Installation
 
 Run this command in your terminal:
