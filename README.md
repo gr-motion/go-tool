@@ -29,3 +29,4 @@ Simply type `go` followed by your request:
 - `go list all files larger than 10MB`
 
 If a command is destructive (e.g., `rm`), it will show you the command and ask for your confirmation.
+# go-tool
