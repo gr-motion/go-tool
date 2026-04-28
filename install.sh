@@ -1,22 +1,28 @@
 #!/bin/zsh
 
-# Create target directories
+# Define a dedicated directory for go-tool's core files in the main user directory
+GO_TOOL_INSTALL_DIR="$HOME/.go-tool-files"
+GO_WRAPPER_PATH="$HOME/bin/go"
+# Determine the directory where install.sh is located
+SCRIPT_SOURCE_DIR="$(cd "$(dirname "$0")" && pwd)" 
+
+# --- Create necessary directories ---
+mkdir -p "$GO_TOOL_INSTALL_DIR"
 mkdir -p "$HOME/bin"
 
-# Download the script (assumes this script is in the repo)
-# In the actual GitHub repo, you'd use curl to download go_script.py
-# For now, we'll assume the files are in the same folder during install
+# --- Copy the main Python script to the dedicated directory ---
+cp "$SCRIPT_SOURCE_DIR/go_script.py" "$GO_TOOL_INSTALL_DIR/go_script.py"
+echo "Copied go_script.py to $GO_TOOL_INSTALL_DIR/"
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+# --- Create the wrapper script ---
+# This wrapper executes the Python script from its dedicated installation directory
+printf '#!/bin/zsh
+python3 "%s/go_script.py" "$@"
+' "$GO_TOOL_INSTALL_DIR" > "$GO_WRAPPER_PATH"
+chmod +x "$GO_WRAPPER_PATH"
+echo "Created wrapper script at $GO_WRAPPER_PATH"
 
-# Copy the python script
-cp "$SCRIPT_DIR/go_script.py" "$HOME/.go_script.py"
-
-# Create the wrapper
-printf '#!/bin/zsh\npython3 ~/.go_script.py "$@"\n' > "$HOME/bin/go"
-chmod +x "$HOME/bin/go"
-
-# Update shell profile
+# --- Update shell profile to ensure ~/bin is in PATH ---
 SHELL_PROFILE=""
 if [[ "$SHELL" == */zsh ]]; then
     SHELL_PROFILE="$HOME/.zshrc"
@@ -29,12 +35,19 @@ elif [[ "$SHELL" == */bash ]]; then
 fi
 
 if [ -n "$SHELL_PROFILE" ]; then
-    if ! grep -q "$HOME/bin" "$SHELL_PROFILE"; then
+    # Check if the specific PATH export line already exists to avoid duplicates
+    if ! grep -q 'export PATH="$HOME/bin:$PATH"' "$SHELL_PROFILE"; then
         echo 'export PATH="$HOME/bin:$PATH"' >> "$SHELL_PROFILE"
-        echo "Added ~/bin to $SHELL_PROFILE. Please restart terminal."
+        echo "Added ~/bin to PATH in $SHELL_PROFILE."
+        echo "Please restart your terminal or run 'source "$SHELL_PROFILE"' for changes to take effect."
     else
-        echo "~/bin already in $SHELL_PROFILE."
+        echo "~/bin is already in your PATH in $SHELL_PROFILE."
     fi
+else
+    echo "Could not determine your shell profile. Please ensure ~/bin is in your PATH manually."
 fi
 
-echo "Installation complete! Use 'go /api [key]' to set up."
+echo "
+go-tool installation complete!"
+echo "You can now use the 'go' command from any directory."
+echo "To uninstall, run: go /uninstall"
